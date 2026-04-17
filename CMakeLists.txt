@@ -79,6 +79,7 @@ add_cxx_warning(parentheses)
 set(COMMON_SOURCES
   common/src/golerror.cpp
   common/src/golfile.cpp
+  common/src/golfileparser.cpp
   common/src/golfsutil.cpp
   common/src/golstream.cpp
   common/src/golfilesource.cpp

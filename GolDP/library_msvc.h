@@ -1,6 +1,9 @@
 #ifdef 0
 // For GOLDP symbols only
 
+// LIBRARY: GOLDP 0x1004b830
+// _strncpy
+
 // aka `operator delete`
 // LIBRARY: GOLDP 0x1004b356
 // ??3@YAXPAX@Z

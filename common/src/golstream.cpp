@@ -121,6 +121,7 @@ LegoS32 GolStream::OpenFileSource()
 	return result;
 }
 
+// FUNCTION: GOLDP 0x10031580
 // FUNCTION: LEGORACERS 0x0044cb30
 LegoS32 GolStream::BufferedOpen(LegoChar* p_fileName, LegoS32 p_mode, LegoU32 p_bufferSize)
 {
@@ -208,6 +209,7 @@ LegoS32 GolStream::BufferedOpen(LegoChar* p_fileName, LegoS32 p_mode, LegoU32 p_
 	return e_ioSuccess;
 }
 
+// FUNCTION: GOLDP 0x10031790
 // FUNCTION: LEGORACERS 0x0044cc90
 LegoS32 GolStream::Dispose()
 {
@@ -237,6 +239,7 @@ LegoS32 GolStream::Dispose()
 	}
 }
 
+// FUNCTION: GOLDP 0x10031800
 // FUNCTION: LEGORACERS 0x0044cd00
 LegoS32 GolStream::BufferedRead(LegoU32 p_offset, void* p_buf, LegoU32 p_size, LegoS32* p_lenRead)
 {
@@ -390,6 +393,7 @@ LegoS32 GolStream::BufferedRead(LegoU32 p_offset, void* p_buf, LegoU32 p_size, L
 	return result;
 }
 
+// FUNCTION: GOLDP 0x10031af0
 // FUNCTION: LEGORACERS 0x0044cff0
 LegoS32 GolStream::ReadLine(void* p_buf, LegoU32 p_size)
 {
@@ -680,13 +684,13 @@ LegoS32 GolStream::FlushWriteBuffer()
 	return result;
 }
 
-// FUNCTION: LEGORACERS 0x0044e7e0
+// FUNCTION: LEGORACERS 0x0044e7e0 FOLDED
 LegoS32 GolStream::Flush()
 {
 	return e_ioSuccess;
 }
 
-// FUNCTION: LEGORACERS 0x0044e7f0
+// FUNCTION: LEGORACERS 0x0044e7f0 FOLDED
 LegoS32 GolStream::Write(void*, LegoU32)
 {
 	return e_ioSuccess;
