@@ -23,6 +23,7 @@ class GolFontTable;
 class GolFileParser;
 class FloatyBoat0x28;
 class MabMaterialAnimation0x14;
+class MabMaterialAnimationItem0x18;
 class OpalHaven0xf4;
 class Particle0x18c;
 class WhiteFalcon0x140;
@@ -427,11 +428,44 @@ public:
 	// SIZE 0x44
 	class Runtime0x44 {
 	public:
+		struct ListTypeAt0x00 {
+			LegoFloat m_unk0x00;
+			LegoFloat m_unk0x04;
+			LegoFloat m_unk0x08;
+		};
+
 		Runtime0x44();
 		~Runtime0x44();
 
+		void Clear();
+		void Reset();
+
+		void Parse(
+			MabMaterialAnimation0x14* p_materialAnimation,
+			BronzeFalcon0xc8770* p_renderer,
+			GolFileParser* p_parser,
+			CrimsonPebbleAnimation0x33c* p_param4
+		);
+
 	private:
-		undefined m_unk0x00[0x44]; // 0x00
+		ListTypeAt0x00* m_unk0x00;                     // 0x00
+		LegoS32 m_unk0x04;                             // 0x04
+		LegoFloat m_unk0x08;                           // 0x08
+		LegoFloat m_unk0x0c;                           // 0x0c
+		LegoFloat m_unk0x10;                           // 0x10
+		LegoS32 m_unk0x14;                             // 0x14
+		LegoS8 m_unk0x18;                              // 0x18
+		LegoS8 m_unk0x19;                              // 0x19
+		LegoFloat m_unk0x1c;                           // 0x1c
+		LegoFloat m_unk0x20;                           // 0x20
+		LegoFloat m_unk0x24;                           // 0x24
+		LegoFloat m_unk0x28;                           // 0x28
+		LegoFloat m_unk0x2c;                           // 0x2c
+		LegoS32 m_unk0x30;                             // 0x30
+		LegoS32 m_unk0x34;                             // 0x34
+		MabMaterialAnimationItem0x18* m_unk0x38;       // 0x38
+		MabMaterialAnimation0x14* m_materialAnimation; // 0x3c
+		DuskwindBananaRelic0x24* m_unk0x40;            // 0x40
 	};
 
 	CrimsonPebbleAnimation0x33c();
@@ -449,18 +483,18 @@ public:
 		BronzeFalcon0xc8770* p_renderer,
 		MabMaterialAnimation0x14* p_materialAnimation,
 		const LegoChar* p_fileName,
-		undefined4 p_binary
+		LegoBool32 p_binary
 	);
 
 	// SYNTHETIC: LEGORACERS 0x004a1180
 	// CrimsonPebbleAnimation0x33c::`vector deleting destructor'
 
 private:
-	Particle0x18c* m_unk0x00c; // 0x00c
-	Runtime0x44* m_unk0x010;   // 0x010
-	Entry0x8 m_unk0x014[100];  // 0x014
-	LegoU32 m_unk0x334;        // 0x334
-	LegoU32 m_unk0x338;        // 0x338
+	Particle0x18c* m_particles; // 0x00c
+	Runtime0x44* m_unk0x010;    // 0x010
+	Entry0x8 m_unk0x014[100];   // 0x014
+	LegoU32 m_unk0x334;         // 0x334
+	LegoU32 m_numParticles;     // 0x338
 };
 
 // VTABLE: LEGORACERS 0x004b4970
