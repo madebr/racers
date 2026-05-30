@@ -3,18 +3,17 @@
 
 #include "compat.h"
 #include "decomp.h"
+#include "golmodelentity.h"
 #include "types.h"
-#include "util/silverhollow0xb8.h"
 
 class CmbModelPart0x34;
 class GolModelBase;
 class GolSceneNode;
 
-// Completes the same 0x90..0xf4 tail that GOLDP keeps entirely in
-// GolSkinnedEntity; the base SilverHollow0xb8 owns 0x90..0xb8 here.
+// The 0x90..0xf4 tail overlaps with GolSkinnedEntity and GlassShard0x3b8.
 // VTABLE: LEGORACERS 0x004af5ec
 // SIZE 0xf4
-class OpalHaven0xf4 : public SilverHollow0xb8 {
+class OpalHaven0xf4 : public GolModelEntity {
 public:
 	OpalHaven0xf4();
 
@@ -62,19 +61,23 @@ private:
 		c_flagsPartAnimationMask = 0x005a0000,
 	};
 
-	LegoFloat m_unk0xb8;              // 0xb8
-	LegoU16 m_unk0xbc;                // 0xbc
-	undefined m_unk0xbe[0xc0 - 0xbe]; // 0xbe
-	GolVec3 m_unk0xc0;                // 0xc0
-	LegoBool32 m_unk0xcc;             // 0xcc
-	LegoFloat m_unk0xd0;              // 0xd0
-	LegoFloat m_unk0xd4;              // 0xd4
-	LegoU16 m_unk0xd8;                // 0xd8
-	undefined m_unk0xda[0xdc - 0xda]; // 0xda
-	GolVec3 m_unk0xdc;                // 0xdc
-	LegoBool32 m_unk0xe8;             // 0xe8
-	LegoFloat m_unk0xec;              // 0xec
-	LegoFloat m_unk0xf0;              // 0xf0
+	GolSceneNode* m_nodes[3];          // 0x90
+	LegoS32 m_partIndices[3];          // 0x9c
+	CmbModelPart0x34* m_modelParts[3]; // 0xa8
+	LegoFloat m_unk0xb4;               // 0xb4
+	LegoFloat m_unk0xb8;               // 0xb8
+	LegoU16 m_unk0xbc;                 // 0xbc
+	undefined m_unk0xbe[0xc0 - 0xbe];  // 0xbe
+	GolVec3 m_unk0xc0;                 // 0xc0
+	LegoBool32 m_unk0xcc;              // 0xcc
+	LegoFloat m_unk0xd0;               // 0xd0
+	LegoFloat m_unk0xd4;               // 0xd4
+	LegoU16 m_unk0xd8;                 // 0xd8
+	undefined m_unk0xda[0xdc - 0xda];  // 0xda
+	GolVec3 m_unk0xdc;                 // 0xdc
+	LegoBool32 m_unk0xe8;              // 0xe8
+	LegoFloat m_unk0xec;               // 0xec
+	LegoFloat m_unk0xf0;               // 0xf0
 };
 
 #endif // OPALHAVEN0XF4_H

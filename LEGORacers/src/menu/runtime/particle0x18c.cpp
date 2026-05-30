@@ -9,22 +9,47 @@ void Particle0x18c::FUN_004513d0(GolD3DRenderDevice*)
 {
 }
 
-// STUB: LEGORACERS 0x004893f0
+// FUNCTION: LEGORACERS 0x004893f0
 Particle0x18c::Particle0x18c()
 {
-	STUB(0x004893f0);
+	Reset();
 }
 
-// STUB: LEGORACERS 0x00489440
+// FUNCTION: LEGORACERS 0x00489440
 Particle0x18c::~Particle0x18c()
 {
-	STUB(0x00489440);
+	// TODO: Reset() and ~SordidWatch0x140 are thunked here
+	Reset();
 }
 
-// STUB: LEGORACERS 0x00489520
+// FUNCTION: LEGORACERS 0x004894a0
+void Particle0x18c::Reset()
+{
+	m_unk0x000 = 0;
+	m_unk0x004 = 0;
+	m_unk0x184 = 0;
+	m_unk0x188 = 0;
+	m_unk0x160.m_m[0][0] = 1.0;
+	m_unk0x160.m_m[0][1] = 0.0;
+	m_unk0x160.m_m[0][2] = 0.0;
+	m_unk0x160.m_m[1][0] = 0.0;
+	m_unk0x160.m_m[1][1] = 1.0;
+	m_unk0x160.m_m[1][2] = 0.0;
+	m_unk0x160.m_m[2][0] = 0.0;
+	m_unk0x160.m_m[2][1] = 0.0;
+	m_unk0x160.m_m[2][2] = 1.0;
+	m_unk0x154.m_x = 0.0;
+	m_unk0x154.m_y = 0.0;
+	m_unk0x154.m_z = 0.0;
+	m_unk0x150 = 0;
+	m_unk0x14c = 0;
+	m_unk0x148 = 0;
+}
+
+// FUNCTION: LEGORACERS 0x00489520
 void Particle0x18c::FUN_00489520(GolExport* p_golExport, GolD3DRenderDevice* p_renderer)
 {
-	STUB(0x00489540);
+	m_unk0x008.FUN_00412430(p_golExport, p_renderer, 0xc, 0x10);
 }
 
 // STUB: LEGORACERS 0x00489540
