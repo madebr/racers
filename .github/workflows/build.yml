@@ -16,8 +16,8 @@ jobs:
       - name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v2
 
-      - name: Setup ninja
-        uses: ashutoshvarma/setup-ninja@master
+      - name: Setup Ninja
+        uses: ./.github/actions/setup-ninja
 
       - name: Setup vcvars
         uses: ilammy/msvc-dev-cmd@v1
@@ -158,7 +158,7 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        python -c 'txt=open("LEGORACERS-diff.txt").read().strip(); open("LEGORACERS-diff.txt","w").write(txt);'
+        python -c 'txt=open("LEGORACERS-diff.txt").read()f.strip(); open("LEGORACERS-diff.txt","w").write(txt);'
         python -c 'txt=open("GOLDP-diff.txt").read().strip(); open("GOLDP-diff.txt","w").write(txt);'
 
         cat <<EOF >reccmp-pr-message.txt
