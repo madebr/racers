@@ -158,6 +158,9 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
+        python -c 'txt=open("LEGORACERS-diff.txt").read().strip(); open("LEGORACERS-diff.txt","w").write(txt);'
+        python -c 'txt=open("GOLDP-diff.txt").read().strip(); open("GOLDP-diff.txt","w").write(txt);'
+
         cat <<EOF >reccmp-pr-message.txt
         # reccmp report
         ## LEGORACERS (LEGORacers.exe)
@@ -170,11 +173,9 @@ jobs:
         \`\`\`
         EOF
 
-        gh pr comment ${{ github.event.number }} \
-          --repo "${{ github.repository }}" \
-          --create-if-none \
-          --edit-last \
-          --body-file "reccmp-pr-message.txt"
+        echo "${{ github.event.number }}" >pr-number.txt
+
+        cat reccmp-pr-message.txt
 
     - name: Upload Artifact
       uses: actions/upload-artifact@main
@@ -183,6 +184,15 @@ jobs:
         path: |
           LEGORACERSPROGRESS*
           GOLDPPROGRESS*
+
+    - name: Upload PR comment payload
+      if: ${{ github.event_name == 'pull_request' && always() }}
+      uses: actions/upload-artifact@main
+      with:
+        name: reccmp-pr-comment
+        path: |
+          reccmp-pr-message.txt
+          pr-number.txt
 
   upload:
     name: Upload artifacts
