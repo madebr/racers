@@ -158,20 +158,22 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        python -c 'txt=open("LEGORACERS-diff.txt").read().strip(); open("LEGORACERS-diff.txt", "w").write(txt);'
-        python -c 'txt=open("GOLDP-diff.txt").read().strip(); open("GOLDP-diff.txt", "w").write(txt);'
+        section() {
+          echo "## $1"
+          echo '```'
+          if [ -f "$2" ]; then
+            python -c "print(open('$2').read().strip())'
+          else
+            echo '(no diff available)';
+          fi
+          echo '```'
+        }
 
-        cat <<EOF >reccmp-pr-message.txt
-        # reccmp report
-        ## LEGORACERS (LEGORacers.exe)
-        \`\`\`
-        $(cat LEGORACERS-diff.txt | sed 's/\x1b\[[0-9;]*m//g')
-        \`\`\`
-        ## GOLDP (GolDP.dll)
-        \`\`\`
-        $(cat GOLDP-diff.txt | sed 's/\x1b\[[0-9;]*m//g')
-        \`\`\`
-        EOF
+        {
+          echo '# reccmp report'
+          section 'LEGORACERS (LEGORacers.exe)' LEGORACERS-diff.txt
+          section 'GOLDP (GolDP.dll)' GOLDP-diff.txt
+        } >reccmp-pr-message.txt
 
         echo "${{ github.event.number }}" >pr-number.txt
 
