@@ -158,8 +158,8 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        python -c 'txt=open("LEGORACERS-diff.txt").read()f.strip(); open("LEGORACERS-diff.txt","w").write(txt);'
-        python -c 'txt=open("GOLDP-diff.txt").read().strip(); open("GOLDP-diff.txt","w").write(txt);'
+        python -c 'txt=open("LEGORACERS-diff.txt").read().strip(); open("LEGORACERS-diff.txt", "w").write(txt);'
+        python -c 'txt=open("GOLDP-diff.txt").read().strip(); open("GOLDP-diff.txt", "w").write(txt);'
 
         cat <<EOF >reccmp-pr-message.txt
         # reccmp report
