@@ -76,6 +76,10 @@ jobs:
     name: Verify decomp
     needs: [build, fetch-deps]
     runs-on: windows-latest
+    permissions:
+      actions: read
+      issues: write
+      pull-requests: write
     steps:
     - uses: actions/checkout@v6
 
