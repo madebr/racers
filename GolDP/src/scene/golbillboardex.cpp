@@ -23,12 +23,12 @@ extern const LegoFloat g_unk0x1005675c = 1.0f;
 GolBillboardInitializerFunction g_unk0x1005c010 = &GolBillboard::FUN_10014e20;
 #pragma data_seg()
 
-// STUB: GOLDP 0x10014e20
+// FUNCTION: GOLDP 0x10014e20
 void GolBillboard::FUN_10014e20()
 {
-	g_billboardTexCoords[2].m_y = 0.0f;
 	g_billboardTexCoords[1].m_y = g_unk0x1005675c;
 	g_billboardTexCoords[2].m_x = g_unk0x1005675c;
+	g_billboardTexCoords[2].m_y = 0.0f;
 	g_billboardTexCoords[3].m_x = g_unk0x1005675c;
 	g_billboardTexCoords[3].m_y = g_unk0x1005675c;
 }
@@ -49,12 +49,10 @@ LegoBool32 GolBillboard::FUN_10014e50(const GolVec3* p_arg1, const GolVec3* p_ar
 
 	if (m_flags & c_flagBit1) {
 		row2 = &m_unk0x30;
-		LegoFloat dot = row2->m_z * row0.m_z;
-		dot += row0.m_y * row2->m_y;
-		dot += row0.m_x * row2->m_x;
-		row0.m_x -= dot * row2->m_x;
-		row0.m_y -= row2->m_y * dot;
-		row0.m_z -= row2->m_z * dot;
+		LegoFloat dot = row0.m_x * row2->m_x + row0.m_y * row2->m_y + row2->m_z * row0.m_z;
+		row0.m_x -= dot * m_unk0x30.m_x;
+		row0.m_y -= dot * m_unk0x30.m_y;
+		row0.m_z -= dot * m_unk0x30.m_z;
 	}
 	else {
 		row2 = p_arg2;
@@ -62,9 +60,9 @@ LegoBool32 GolBillboard::FUN_10014e50(const GolVec3* p_arg1, const GolVec3* p_ar
 
 	GolMath::NormalizeVector3(row0, &row0);
 
-	row1.m_x = row0.m_z * row2->m_y - row2->m_z * row0.m_y;
-	row1.m_y = row2->m_z * row0.m_x - row0.m_z * row2->m_x;
-	row1.m_z = row0.m_y * row2->m_x - row2->m_y * row0.m_x;
+	row1.m_x = row2->m_y * row0.m_z - row2->m_z * row0.m_y;
+	row1.m_y = row2->m_z * row0.m_x - row2->m_x * row0.m_z;
+	row1.m_z = row2->m_x * row0.m_y - row2->m_y * row0.m_x;
 
 	p_matrix->m_m[0][0] = row0.m_x;
 	p_matrix->m_m[0][1] = row0.m_y;
@@ -81,8 +79,8 @@ LegoBool32 GolBillboard::FUN_10014e50(const GolVec3* p_arg1, const GolVec3* p_ar
 	p_matrix->m_m[2][2] = row2->m_z;
 	p_matrix->m_m[2][3] = 0.0f;
 
-	LegoFloat halfWidth = m_width * 0.5f;
-	LegoFloat halfHeight = m_height * 0.5f;
+	LegoFloat halfWidth = m_width / 2.0f;
+	LegoFloat halfHeight = m_height / 2.0f;
 	p_matrix->m_m[3][0] = position.m_x - halfWidth * row1.m_x - halfHeight * row2->m_x;
 	p_matrix->m_m[3][1] = position.m_y - halfWidth * row1.m_y - halfHeight * row2->m_y;
 	p_matrix->m_m[3][2] = position.m_z - halfWidth * row1.m_z - halfHeight * row2->m_z;

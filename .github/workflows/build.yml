@@ -121,8 +121,11 @@ jobs:
         curl -fLSs -o LEGORACERSPROGRESS-old.json $RELEASE_URL/LEGORACERSPROGRESS.json || echo "" >LEGORACERSPROGRESS-old.json
         curl -fLSs -o GOLDPPROGRESS-old.json $RELEASE_URL/GOLDPPROGRESS.json || echo "" >GOLDPPROGRESS-old.json
 
-        reccmp-reccmp --target LEGORACERS --nolib --diff LEGORACERSPROGRESS-old.json || echo "Current master not found"
-        reccmp-reccmp --target GOLDP --nolib --diff GOLDPPROGRESS-old.json || echo "Current master not found"
+        (reccmp-reccmp --target LEGORACERS --nolib --diff LEGORACERSPROGRESS-old.json || echo "Current master not found")>"LEGORACERS-diff.txt"
+        (reccmp-reccmp --target GOLDP --nolib --diff GOLDPPROGRESS-old.json || echo "Current master not found")>"GOLDP-diff.txt"
+
+        cat LEGORACERS-diff.txt
+        cat GOLDP-diff.txt
 
     - name: Check Vtables
       if: ${{ steps.detection.conclusion == 'success' && always() }}
@@ -144,6 +147,30 @@ jobs:
       run: |
         python tools/check_folded.py --target LEGORACERS
         python tools/check_folded.py --target GOLDP
+
+    - name: 'Create comment on PR'
+      if: ${{ github.event_name == 'pull_request' }}
+      shell: sh
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        cat <<EOF >reccmp-pr-message.txt
+        # reccmp report
+        ## LEGORACERS (LEGORacers.exe)
+        \`\`\`
+        $(cat LEGORACERS-diff.txt | sed 's/\x1b\[[0-9;]*m//g')
+        \`\`\`
+        ## GOLDP (GolDP.dll)
+        \`\`\`
+        $(cat GOLDP-diff.txt | sed 's/\x1b\[[0-9;]*m//g')
+        \`\`\`
+        EOF
+
+        gh pr comment ${{ github.event.number }} \
+          --repo "${{ github.repository }}" \
+          --create-if-none \
+          --edit-last \
+          --body-file "reccmp-pr-message.txt"
 
     - name: Upload Artifact
       uses: actions/upload-artifact@main
