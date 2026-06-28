@@ -162,7 +162,7 @@ jobs:
           echo "## $1"
           echo '```'
           if [ -f "$2" ]; then
-            python -c "print(open('$2').read().strip())'
+            python -c "print(open('$2').read().strip())";
           else
             echo '(no diff available)';
           fi
